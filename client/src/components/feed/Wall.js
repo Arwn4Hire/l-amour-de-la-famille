@@ -35,7 +35,7 @@ class Wall extends Component {
             console.log(data.error);
         } else {
             this.setState({ posts: data });
-           console.log(data)
+           //console.log(data)
         }
     });
 };
@@ -48,7 +48,6 @@ class Wall extends Component {
   }
 
   renderPosts = posts => {
-    const {like, likes, comments, place, hashtags} = this.state
     
     return (
       <div>
@@ -100,7 +99,8 @@ class Wall extends Component {
                   <img src={sendImg} alt="Send" />
                 </button>
               </div>
-              <strong>{post.likes.length} likes</strong>
+              <strong >{post.likes.length} likes</strong>
+              <strong className='ml-3'>Comments</strong>
               <p>
                 {post.description}<br/>
                 <span>{post.hashtags}</span>

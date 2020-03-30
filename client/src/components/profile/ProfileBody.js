@@ -4,7 +4,7 @@ import { Redirect, Link } from "react-router-dom";
 import {listByUser} from '../../apis/apiPost'
 import { read } from '../../apis/apiUser'
 import ProfileTabs from './ProfileTabs'
-//import FollowProfileButton from "./FollowProfileButton";
+import FollowProfileButton from "./FollowButtons";
 import defaultProfile from '../../assets/images/useravatar.png'
 import loadingSkeleton from '../../assets/images/skeleton-loading.gif'
 import cog from '../../assets/images/cog-solid.svg'
@@ -126,11 +126,11 @@ class ProfileBody extends Component {
             
           </div>
           ) : (
-            <p>kl</p>
-            // <FollowProfileButton
-            //   following={this.state.following}
-            //   onButtonClick={this.clickFollowButton}
-            ///>
+            
+            <FollowProfileButton
+              following={this.state.following}
+              onButtonClick={this.clickFollowButton}
+            />
           )}{" "}
     
           <ProfileTabs

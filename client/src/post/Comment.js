@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { comment, uncomment } from "../apis/apiPost";
 import { isAuthenticated } from "../auth";
 import { Link } from "react-router-dom";
-import DefaultPostImg from "../images/useravatar.png";
+import DefaultPostImg from "../assets/images/useravatar.png";
 import Swal from "sweetalert2";
 
 class Comment extends Component {

@@ -43,7 +43,7 @@ class SinglePost extends Component {
           like: this.checkLike(data.likes),
           comments: data.comments
         });
-        
+        console.log(data)
       }
     });
   };

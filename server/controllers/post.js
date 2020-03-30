@@ -66,12 +66,13 @@ exports.getPost = async (req, res) => {
               .populate('comments', 'text created')
               .populate('comments.postedBy', '_id name')
               .populate('postedBy', '_id name')
-              .select('_id description hashtags place created likes')
+              .select('_id description hashtags place created likes ')
               .limit(perPage)
               .sort({ created: -1 });
       })
       .then(posts => {
           res.status(200).json(posts);
+          console.log(posts)
       })
       .catch(err => console.log(err));
 };
@@ -106,7 +107,7 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.postsByUser = (req, res) => {
-  Post.find({postedBy: req.profile._id}).populate("postedBy", "_id name").select("_id description hashtags place created likes").sort("_created").exec((err, posts) => {
+  Post.find({postedBy: req.profile._id}).populate("postedBy", "_id name").select("_id description hashtags place comments created likes").sort("_created").exec((err, posts) => {
     if(err) {
       return res.status(400).json({
         error: err
