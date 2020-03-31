@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import commentImg from '../../assets/images/comment.svg';
 import likeImg from "../../assets/images/like.svg";
+import heartImg from "../../assets/images/heart-solid.svg";
 import sendImg from "../../assets/images/send.svg";
 import moreImg from "../../assets/images/more.svg";
 
@@ -14,12 +15,11 @@ class Wall extends Component {
     super();
     this.state = {
       posts: [],
-      postIdFor: "",
-      like: false,
       likes: 0,
       comments: [],
       hashtags:[],
-      place:''
+      place:'',
+      text: ''
     };
    
   }
@@ -30,18 +30,16 @@ class Wall extends Component {
             console.log(data.error);
         } else {
             this.setState({ posts: data });
-           console.log(data)
+          // console.log(data)
         }
     });
 };
-
 
    async componentDidMount() {
     this.loadPosts();
   }
 
   renderPosts = posts => {
-    
     return (
       <div>
       <section id="post-list">
@@ -81,22 +79,36 @@ class Wall extends Component {
 
             <footer>
               <div className="actions">
+              { post.likes.length ? (
+                <Link to={`/post/${post._id}`}>
                 <button >
-                  <img src={likeImg} alt="Like" />
-                </button>
+                <img src={heartImg} alt="Like" />
+              </button>
+              </Link>
+              ): (
+                <Link to={`/post/${post._id}`}>
+                <button >
+                <img src={likeImg} alt="Like" />
+              </button>
+              </Link>
+              )}
+              <Link to={`/post/${post._id}`}>
                 <button type="button">
                   <img src={commentImg} alt="Comment" />
                 </button>
+                </Link>
                 <button type="button">
                   <img src={sendImg} alt="Send" />
                 </button>
               </div>
               <strong >{post.likes.length} likes</strong>
-              <strong className='ml-3'>Comments</strong>
+              <strong className='ml-3'>{post.comments.length} Comments</strong>
+              
               <p>
                 {post.description}<br/>
-                <span>{post.hashtags}</span>
+                <span>{post.hashtags}</span><br/>
               </p>
+              
             </footer>
           
           

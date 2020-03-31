@@ -114,6 +114,7 @@ class EditProfile extends Component {
           onChange={this.handleChange("name")}
           className="form-control"
           value={name}
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <div className="form-group">
@@ -123,15 +124,18 @@ class EditProfile extends Component {
           type="email"
           className="form-control"
           value={email}
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <div className="form-group">
-        <label className="text-muted">About</label>
+        <label className="text-muted">Bio</label>
         <textarea
           type="text"
           onChange={this.handleChange("about")}
-          className="form-control"
+          className="form-control text-dark"
           value={about}
+          placeholder="bio"
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <div className="form-group">
@@ -151,7 +155,6 @@ class EditProfile extends Component {
 
   render() {
     const { id, name, email, password, redirectToProfile, error, loading, about } = this.state;
-
 
     if (redirectToProfile) {
       return <Redirect to={`/user/${id}`} />;

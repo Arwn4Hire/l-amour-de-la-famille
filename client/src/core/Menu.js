@@ -70,7 +70,7 @@ const Menu = ({ history }) => {
               }?${new Date().getTime()}`
             : defaultProfile} alt={isAuthenticated().user.name}
             onError={i => (i.target.src = `${defaultProfile}`)}
-            width="23px" height="23px" />
+            width="23px" height="23px" style={{ borderRadius: "50%", border: "1px solid black" }}/>
         </Link>
      
         <span style={isActive(history, "#")}

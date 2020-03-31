@@ -48,15 +48,18 @@ class SignUp extends Component {
           onChange={this.handleChange("name")}
           className="form-control"
           value={name}
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <div className="form-group">
+      <i className="fa fa-envelope prefix grey-text"></i>
         <label className="lead">Email</label>
         <input
           onChange={this.handleChange("email")}
           type="email"
           className="form-control text-dark bold"
           value={email}
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <div className="form-group">

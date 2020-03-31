@@ -3,6 +3,7 @@ import { comment, uncomment } from "../apis/apiPost";
 import { isAuthenticated } from "../auth";
 import { Link } from "react-router-dom";
 import DefaultPostImg from "../assets/images/useravatar.png";
+import trashImg from '../assets/images/trash-solid.svg'
 import Swal from "sweetalert2";
 
 class Comment extends Component {
@@ -15,7 +16,7 @@ class Comment extends Component {
     const { text } = this.state;
     if (!text.length > 0 || text.length > 300) {
       this.setState({
-        error: "Comments should not be empty and greater than 300 characters long"
+        error: "Comments should not be empty and should not be greater than 300 characters long"
       });
       return false;
     }
@@ -92,9 +93,10 @@ class Comment extends Component {
             <input
               type="text"
               onChange={this.handleChange}
-              className="form-control lead text-white"
+              className="form-control lead text-dark"
               value={this.state.text}
               placeholder="Leave a comment"
+              style={{'fontSize': '1.0em'}}
             />
             <button className="btn btn-raised btn-info mt-2">Post</button>
           </div>
@@ -126,9 +128,10 @@ class Comment extends Component {
                 </Link>
                 <div>
                   <h6 className="lead font-italic text-white">
+
                     {comment.text}
-                    
-                    <p className=" small">
+                   
+                    <p className="small">
                       Posted by{" "}
                       <Link to={`/user/${comment.postedBy._id}`}>
                         {comment.postedBy.name}
@@ -145,13 +148,14 @@ class Comment extends Component {
                               style={{ borderRadius: "12px" }}
                               onClick={()=>this.deleteComment(comment)}
                             >
-                              <i className="far fa-trash-alt" /> {" "}
+                            <img src={trashImg} alt='delete-post'/> {" "}
                             </span>
                           </>
                         )}
                       </span>
                     </p>
                   </h6>
+                  <hr/>
                 </div>
               </div>
             </div>

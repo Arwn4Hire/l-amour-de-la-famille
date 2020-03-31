@@ -29,6 +29,7 @@ const postSchema = new mongoose.Schema(
     }],
     updated: Date,
     likes: [{ type: ObjectId, ref: "User" }],
+    
     comments: [
       {
         text: String,

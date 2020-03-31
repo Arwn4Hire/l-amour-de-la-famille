@@ -19,6 +19,7 @@ import downloadImg from '../assets/images/download-solid.svg'
 class SinglePost extends Component {
   state = {
     post: "",
+    photoImgId:"",
     redirectToHome: false,
     redirectToSignIn: false,
     loading: false,
@@ -41,6 +42,7 @@ class SinglePost extends Component {
       } else {
         this.setState({
           post: data,
+          photoImgId: data._id,
           likes: data.likes.length,
           like: this.checkLike(data.likes),
           comments: data.comments
@@ -105,8 +107,10 @@ class SinglePost extends Component {
   renderPost = post => {
     const posterId = post.postedBy ? `/user/${post.postedBy._id}` : "";
     const posterName = post.postedBy ? post.postedBy.name : "Unknown";
-    const { like, likes, comments } = this.state;
-    
+    const { like, likes, comments, photoImgId } = this.state;
+
+    const photoURL =  photoImgId ? `${process.env.REACT_APP_API_URL}/post/photo/${photoImgId}?${new Date().getTime()}` : DefaultPostImg
+    console.log(photoURL)
     return (
       <div className="card-body text-center">
 
@@ -154,7 +158,7 @@ class SinglePost extends Component {
               </>
             )}
         </div>
-        <Download file={`${process.env.REACT_APP_API_URL}/post/photo/${post.photo}`} content={`${process.env.REACT_APP_API_URL}/post/photo/${post._id}`}>
+        <Download file={photoURL} onError={i => (i.target.src =`${DefaultPostImg}`)} content={photoURL}>
        <button className="btn btn-raised btn-success btn-lg mr-5" style={{ borderRadius: "12px" }}><img src={downloadImg} alt={post.description}/>
         </button></Download>
         
@@ -185,7 +189,7 @@ class SinglePost extends Component {
           )}
           
           </div>
-          <div className='float-right mt-5'>{comments.length} Comment</div>
+          <div className='float-right mt-5'>{comments.length} Comments</div>
           
           <hr/>
           {isAuthenticated().user &&(
@@ -201,8 +205,6 @@ class SinglePost extends Component {
             
           </div> 
           )}
-
-          
       
       </div>
       </div>
@@ -234,6 +236,7 @@ class SinglePost extends Component {
         ) : (
           this.renderPost(post)
         )}
+
         <Comment
           postId={post._id}
           comments={comments.reverse()}

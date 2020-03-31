@@ -51,10 +51,10 @@ exports.getPostIdForLikes = (req, res) => {
 //with pagination
 exports.getPost = async (req, res) => {
   // get current page from req.query or use default value of 1
-  const currentPage = req.query.page || 1;
+  //const currentPage = req.query.page || 1;
   // return 3 posts per page
-  const perPage = 6;
-  let totalItems;
+  //const perPage = 6;
+  //let totalItems;
 
   const posts = await Post.find()
       // countDocuments() gives you total count of posts
@@ -62,17 +62,17 @@ exports.getPost = async (req, res) => {
       .then(count => {
           totalItems = count;
           return Post.find()
-              .skip((currentPage - 1) * perPage)
-              .populate('comments', 'text created')
+              //.skip((currentPage - 1) * perPage)
+              //.populate('comments', 'text created')
               .populate('comments.postedBy', '_id name')
               .populate('postedBy', '_id name')
-              .select('_id description hashtags place created likes ')
-              .limit(perPage)
+              .select('_id description hashtags place created likes comments')
+             // .limit(perPage)
               .sort({ created: -1 });
       })
       .then(posts => {
           res.status(200).json(posts);
-          console.log(posts)
+          //console.log(posts)
       })
       .catch(err => console.log(err));
 };

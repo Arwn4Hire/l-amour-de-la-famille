@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {follow, unfollow} from '../../apis/apiUser'
-//import {isAuthenticated } from "../..auth";
 
 class FollowButtons extends Component {
     followClick = () => {

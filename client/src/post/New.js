@@ -113,6 +113,7 @@ class New extends Component {
           placeholder="Post's Description"
           onChange={this.handleChange("description")}
           value={description}
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <div className="form-group">
@@ -125,6 +126,7 @@ class New extends Component {
           placeholder="Post's place"
           onChange={this.handleChange("place")}
           value={place}
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <div className="form-group">
@@ -137,6 +139,7 @@ class New extends Component {
           placeholder="Post's Hashtags"
           onChange={this.handleChange("hashtags")}
           value={hashtags}
+          style={{'fontSize': '1.0em'}}
         />
       </div>
       <button
