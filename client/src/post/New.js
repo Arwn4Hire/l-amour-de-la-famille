@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { isAuthenticated } from "../auth";
 import { create } from "../apis/apiPost";
 import { Redirect } from "react-router-dom";
+//import Camera from 'react-html5-camera-photo';
+//import 'react-html5-camera-photo/build/css/index.css';
 import loadingGif from "../assets/images/loading.gif";
 import hashTagsImg from "../assets/images/hashtag-solid.svg";
 import locationImg from "../assets/images/search-location-solid.svg";
@@ -56,6 +58,11 @@ class New extends Component {
     this.setState({ [name]: value, fileSize });
   };
 
+  handleTakePhoto (dataUri) {
+    // Do stuff with the photo...
+    console.log('takePhoto');
+  }
+
   clickSubmit = async e => {
     e.preventDefault();
     this.setState({ loading: true });
@@ -91,6 +98,11 @@ class New extends Component {
           className="form-control text-dark bold"
         />
       </div>
+
+      <div className="form-group">
+     
+    </div>
+      
       <div className="form-group">
       <img src={editdesImg} alt="geo-loc" />
         <label className=" bold">Description</label>

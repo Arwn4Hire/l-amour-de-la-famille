@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {follow, unfollow} from '../../apis/apiUser'
+//import {isAuthenticated } from "../..auth";
 
 class FollowButtons extends Component {
-
     followClick = () => {
         this.props.onButtonClick(follow)
     }
@@ -12,6 +12,7 @@ class FollowButtons extends Component {
     }
 
     render() {
+      const {userName} = this.props
         return (
             <div className="d-inline-block">
         {!this.props.following ? (
@@ -19,6 +20,7 @@ class FollowButtons extends Component {
         ) : (
           <button onClick={this.unfollowClick} className="btn btn-warning btn-lg btn-raised ">UnFollow</button>
         )}
+        <h2 className="profile-user-name">{userName}</h2>
       </div>
         )
     }

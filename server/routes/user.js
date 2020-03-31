@@ -19,6 +19,9 @@ const router = express.Router();
 router.put("/user/follow", requireSignin, addFollowing, addFollower);
 router.put("/user/unfollow", requireSignin, removeFollowing, removeFollower);
 
+// get following and followers
+// router.get('/followers/:userId', requireSignin, getUser)
+
 //sign out
 router.get("/users", allUsers);
 

@@ -6,12 +6,14 @@ import LoadingGif from "../assets/images/loading.gif";
 import { isAuthenticated } from "../auth";
 import Swal from "sweetalert2";
 import Comment from "./Comment";
+import Download from '@axetroy/react-download';
 //images
 import grinHearts from '../assets/images/grin-hearts.svg'
 import frown from '../assets/images/frown-regular.svg'
 import backImg from '../assets/images/arrow-circle-left-solid.svg'
 import deleteImg from '../assets/images/trash-solid.svg'
 import editImg from '../assets/images/edit-regular.svg'
+import downloadImg from '../assets/images/download-solid.svg'
 
 
 class SinglePost extends Component {
@@ -152,6 +154,10 @@ class SinglePost extends Component {
               </>
             )}
         </div>
+        <Download file={`${process.env.REACT_APP_API_URL}/post/photo/${post.photo}`} content={`${process.env.REACT_APP_API_URL}/post/photo/${post._id}`}>
+       <button className="btn btn-raised btn-success btn-lg mr-5" style={{ borderRadius: "12px" }}><img src={downloadImg} alt={post.description}/>
+        </button></Download>
+        
         <hr/>
       </div>
 

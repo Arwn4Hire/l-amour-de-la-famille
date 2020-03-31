@@ -53,8 +53,9 @@ class SignIn extends Component {constructor() {
         <input
           onChange={this.handleChange("email")}
           type="email"
-          className="form-control text-dark bold"
+          className="form-control  text-dark bold"
           value={email}
+          style={{'fontSize': '1.0em'}}
         />
         
       </div>
@@ -64,8 +65,9 @@ class SignIn extends Component {constructor() {
         <input
           onChange={this.handleChange("password")}
           type="password"
-          className="form-control text-dark bold"
+          className="form-control lead display-4 text-dark bold"
           value={password}
+          
         />
       </div>
       <button onClick={this.clickSubmit} className="btn btn-raised btn-info btn-lg waves-effect waves-light btn-block">

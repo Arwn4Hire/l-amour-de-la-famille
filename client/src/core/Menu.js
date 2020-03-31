@@ -45,7 +45,7 @@ const Menu = ({ history }) => {
         {isAuthenticated() && (
           <>
 
-      <Link to="/add-users" style={isActive(history, "/add-users")}>
+      <Link to="/find-users" style={isActive(history, "/find-users")}>
       {" "}
       <img src={users} alt="users-add" />
     </Link>

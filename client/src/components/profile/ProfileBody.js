@@ -130,6 +130,7 @@ class ProfileBody extends Component {
             <FollowProfileButton
               following={this.state.following}
               onButtonClick={this.clickFollowButton}
+              userName={user.name}
             />
           )}{" "}
     

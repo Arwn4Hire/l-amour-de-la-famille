@@ -152,3 +152,85 @@ import appPostDefaultImg from '../../assets/images/wormhole.jpg'
     }
 }
 export default UserPostImgs
+
+
+
+import React, { Component } from 'react';
+import { read } from '../../apis/apiUser'
+import LoadingSkeleton from '../../assets/images/skeleton-loading.gif'
+import { isAuthenticated } from "../../auth";
+import {Link} from 'react-router-dom'
+import DefaultProfile from '../../assets/images/useravatar.png'
+
+class Followers extends Component {
+  constructor() {
+    super()
+    this.state = {
+      user: { following: [], followers: [] },
+      loading: false
+    }
+  }
+
+  init = userId => {
+    this.setState({loading: true})
+    const token = isAuthenticated().token;
+    read(userId, token).then(data => {
+      if (data.error) {
+        this.setState({ redirectToSignIn: true });
+      } else {
+        console.log(data)
+        this.setState({ user: data, loading: false });
+        
+      }
+    });
+  };
+
+  componentDidMount() {
+    const userId = isAuthenticated().user._id;    
+    this.init(userId);
+  }
+
+  UNSAFE_componentWillReceiveProps() {
+    const userId = isAuthenticated().user._id;
+    this.init(userId);
+  }
+
+  render() {
+    const user = isAuthenticated().user
+    const followers = user.followers
+    console.log(user)
+    return (
+      <div className="container">
+      <div className="row">
+      <div className="col md 4">
+      <h2>Followers</h2>
+      {followers.map((person, i) => (
+        <div key={i}>
+          <div>
+            <Link to={`/user/${person._id}`}>
+              <img
+                className="float-left mr-2"
+                height="30px"
+                width="30px"
+                style={{ borderRadius: "50%", border: "1px solid black" }}
+                src={`${process.env.REACT_APP_API_URL}/user/photo/${person._id}`}
+                alt={person.name}
+                onError={i => (i.target.src = `${DefaultProfile}`)}
+              />
+              <div>
+                <small className="text-center font-italic text-white">
+                  {person.name}
+                </small>
+              </div>
+            </Link>
+          </div>
+        </div>
+      ))}
+      </div>
+      </div>
+      </div>
+    );
+  }
+}
+
+export default Followers

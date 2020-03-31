@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import {list} from '../../apis/apiPost'
-import {isAuthenticated} from '../../auth'
 import defaultProfile from '../../assets/images/useravatar.png'
 import appPostDefaultImg from '../../assets/images/wormhole.jpg'
 import { Link } from "react-router-dom";
-
-//import io from "socket.io-client"; 
-
-//import api from "../services/api";
 
 import commentImg from '../../assets/images/comment.svg';
 import likeImg from "../../assets/images/like.svg";
@@ -35,13 +30,11 @@ class Wall extends Component {
             console.log(data.error);
         } else {
             this.setState({ posts: data });
-           //console.log(data)
+           console.log(data)
         }
     });
 };
-//   state = {
-//     feed: []
-//   };
+
 
    async componentDidMount() {
     this.loadPosts();
@@ -53,8 +46,9 @@ class Wall extends Component {
       <div>
       <section id="post-list">
       {posts.map((post,i) => {
-        const posterId = post.postedBy ? `/user/${post.postedBy._id}` : ""
+       // const posterId = post.postedBy ? `/user/${post.postedBy._id}` : ""
     const posterName = post.postedBy ? post.postedBy.name : "Unknown"
+
         return(
           <article key={i}>
           
@@ -63,17 +57,15 @@ class Wall extends Component {
             
               <div className="user-info">
               <div className="Post-user-avatar">
-              {isAuthenticated() && (
-                <>
-                <img src={isAuthenticated().user._id
-                  ? `${process.env.REACT_APP_API_URL}/user/photo/${
-                    isAuthenticated().user._id
-                    }?${new Date().getTime()}`
-                  : defaultProfile} alt={isAuthenticated().user.name}
-                  onError={i => (i.target.src = `${defaultProfile}`)}
-                  width="23px" height="23px" />
-              </>
-              )}
+              
+              <img
+                    className=" mt-3 img-fluid"
+                    width="23px" height="23px"
+                    style={{ borderRadius: "50%", border: "1px solid black" }}
+                    src={`${process.env.REACT_APP_API_URL}/user/photo/${post.postedBy._id}?${new Date().getTime()}`}
+                    alt={post.name}
+                    onError={i => (i.target.src = `${defaultProfile}`)}
+                  />
             </div>
 
 
@@ -115,26 +107,6 @@ class Wall extends Component {
       </div>
     )
   }
-
-//   registerToSocket = () => {
-//     const socket = io("http://localhost:3333");
-
-//     socket.on("post", newPost => {
-//       this.setState({ feed: [newPost, ...this.state.feed] });
-//     });
-
-//     socket.on("like", likePost => {
-//       this.setState({
-//         feed: this.state.feed.map(post =>
-//           post._id === likePost._id ? likePost : post
-//         )
-//       });
-//     });
-//   };
-
-//   handleLike = id => {
-//     api.post(`/posts/${id}/like`);
-//   };
 
   render() {
     const { posts } = this.state;
