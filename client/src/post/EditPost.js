@@ -13,7 +13,6 @@ class EditPost extends Component {
             postImgId:"",
             description: "",
       place: "",
-      hashtags: "",
             redirectToProfile: false,
             error: "",
             fileSize: 0,
@@ -32,7 +31,6 @@ class EditPost extends Component {
                     postImgId: data._id,
                     description: data.description,
                     place: data.place,
-                    hashtags: data.hashtags,
                     error: "",
                     loading: false
                 });
@@ -57,7 +55,7 @@ class EditPost extends Component {
             return false;
         }
         if (description.length === 0 ) {
-            this.setState({ error: "Description is required", loading: false });
+            this.setState({ error: "Caption is required", loading: false });
             return false;
         }
         return true;
@@ -87,7 +85,7 @@ class EditPost extends Component {
                     this.setState({
                         loading: false,
                         description: "",
-                        hashtags: "",
+                
                         place:"",
                         redirectToProfile: true
                     });
@@ -96,7 +94,7 @@ class EditPost extends Component {
         }
     };
 
-    editPostForm = (description, place ,hashtags) => (
+    editPostForm = (description, place) => (
         <form>
             <div className="form-group">
                 <label className="text-muted">Post Photo</label>
@@ -108,7 +106,7 @@ class EditPost extends Component {
                 />
             </div>
             <div className="form-group">
-                <label className="lead">Description</label>
+                <label className="lead">Caption</label>
                 <input
                     onChange={this.handleChange("description")}
                     type="text"
@@ -129,17 +127,6 @@ class EditPost extends Component {
                 />
             </div>
 
-            <div className="form-group">
-                <label className="lead">HashTags</label>
-                <input
-                    onChange={this.handleChange("hashtags")}
-                    type="text"
-                    className="form-control italic form-text text-dark"
-                    value={hashtags}
-                    style={{'fontSize': '1.0em'}}
-                />
-            </div>
-
             <button
                 onClick={this.clickSubmit}
                 className="btn btn-raised lead btn-info btn-lg"
@@ -155,7 +142,7 @@ class EditPost extends Component {
             postImgId,
             description,
             place,
-            hashtags,
+            
             redirectToProfile,
             error,
             loading
@@ -191,10 +178,10 @@ class EditPost extends Component {
                 alt={description}
             />
                 {isAuthenticated().user.role === "admin" &&
-                    this.editPostForm(description,place, hashtags)}
+                    this.editPostForm(description,place)}
 
                 {isAuthenticated().user._id === id &&
-                    this.editPostForm(description,place, hashtags)}
+                    this.editPostForm(description,place)}
             </div>
         );
     }

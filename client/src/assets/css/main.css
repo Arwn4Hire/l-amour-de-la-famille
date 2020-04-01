@@ -97,9 +97,6 @@ header#main-header {
   
   section#post-list article footer p span {
     color: #eb524c;
-    display: block;
+    
   }
-  
-  
-
-  
+/*display: block;*/

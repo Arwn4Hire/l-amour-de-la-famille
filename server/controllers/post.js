@@ -8,7 +8,7 @@ exports.postById = (req, res, next, id) => {
       .populate('postedBy', '_id name')
       .populate('comments.postedBy', '_id name')
       .populate('postedBy', '_id name role')
-      .select('_id description hashtags place created likes comments photo')
+      .select('_id description place created likes comments photo')
       .exec((err, post) => {
           if (err || !post) {
               return res.status(400).json({
@@ -66,7 +66,7 @@ exports.getPost = async (req, res) => {
               //.populate('comments', 'text created')
               .populate('comments.postedBy', '_id name')
               .populate('postedBy', '_id name')
-              .select('_id description hashtags place created likes comments')
+              .select('_id description place created likes comments')
              // .limit(perPage)
               .sort({ created: -1 });
       })
@@ -107,7 +107,7 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.postsByUser = (req, res) => {
-  Post.find({postedBy: req.profile._id}).populate("postedBy", "_id name").select("_id description hashtags place comments created likes").sort("_created").exec((err, posts) => {
+  Post.find({postedBy: req.profile._id}).populate("postedBy", "_id name").select("_id description place comments created likes").sort("_created").exec((err, posts) => {
     if(err) {
       return res.status(400).json({
         error: err

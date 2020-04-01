@@ -3,12 +3,14 @@ import {list} from '../../apis/apiPost'
 import defaultProfile from '../../assets/images/useravatar.png'
 import appPostDefaultImg from '../../assets/images/wormhole.jpg'
 import { Link } from "react-router-dom";
+import ReactHashtag from "react-hashtag";
 
 import commentImg from '../../assets/images/comment.svg';
 import likeImg from "../../assets/images/like.svg";
 import heartImg from "../../assets/images/heart-solid.svg";
 import sendImg from "../../assets/images/send.svg";
 import moreImg from "../../assets/images/more.svg";
+
 
 class Wall extends Component {
   constructor() {
@@ -17,7 +19,6 @@ class Wall extends Component {
       posts: [],
       likes: 0,
       comments: [],
-      hashtags:[],
       place:'',
       text: ''
     };
@@ -102,13 +103,14 @@ class Wall extends Component {
                 </button>
               </div>
               <strong >{post.likes.length} likes</strong>
-              <strong className='ml-3'>{post.comments.length} Comments</strong>
+              <strong className='ml-3'>{post.comments.length} Comments</strong><br/>
               
-              <p>
-                {post.description}<br/>
-                <span>{post.hashtags}</span><br/>
+             <p>
+              <ReactHashtag onHashtagClick={val =>  alert(val)}>
+                {post.description} 
+              </ReactHashtag>
+             
               </p>
-              
             </footer>
           
           

@@ -3,6 +3,10 @@ import React, { Component } from "react";
 import { isAuthenticated } from "../auth";
 import { create } from "../apis/apiPost";
 import { Redirect } from "react-router-dom";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
 //import Camera from 'react-html5-camera-photo';
 //import 'react-html5-camera-photo/build/css/index.css';
 import loadingGif from "../assets/images/loading.gif";
@@ -18,7 +22,6 @@ class New extends Component {
     this.state = {
       description: "",
       place: "",
-      hashtags: "",
       photo: "",
       error: "",
       user: {},
@@ -35,14 +38,14 @@ class New extends Component {
   }
 
   isValid = () => {
-    const { description, hashtags, fileSize } = this.state;
+    const { description, fileSize } = this.state;
     if (fileSize > 51200) {
       this.setState({ error: "File should be less than 5120kb or 5mb" });
       return false;
     }
-    if (description.length === 0 || hashtags.length === 0) {
+    if (description.length === 0 ) {
       this.setState({
-        error: "Description and hashtags are required",
+        error: "Caption are required",
         loading: false
       });
       return false;
@@ -79,7 +82,7 @@ class New extends Component {
             photo: "",
             description: "",
             place: "",
-            hashtags: "",
+            
             redirectToProfile: true
           });
         }
@@ -88,7 +91,7 @@ class New extends Component {
     }
   };
 
-  newPostForm = (description, hashtags, place) => (
+  newPostForm = (description, place) => (
     <form className="mt-5">
       <div className="form-group">
         <input
@@ -105,12 +108,12 @@ class New extends Component {
       
       <div className="form-group">
       <img src={editdesImg} alt="geo-loc" />
-        <label className=" bold">Description</label>
+        <label className=" bold">Caption</label>
         <input
           className="form-control text-dark bold"
           type="text"
           name="description"
-          placeholder="Post's Description"
+          placeholder="Post's Caption"
           onChange={this.handleChange("description")}
           value={description}
           style={{'fontSize': '1.0em'}}
@@ -129,19 +132,6 @@ class New extends Component {
           style={{'fontSize': '1.0em'}}
         />
       </div>
-      <div className="form-group">
-        <img src={hashTagsImg} alt="hashTags" />
-        <label className=" bold">Hashtags</label>
-        <input
-          className="form-control text-dark bold"
-          type="text"
-          name="hashtags"
-          placeholder="Post's Hashtags"
-          onChange={this.handleChange("hashtags")}
-          value={hashtags}
-          style={{'fontSize': '1.0em'}}
-        />
-      </div>
       <button
         onClick={this.clickSubmit}
         className="btn btn-raised btn-info btn-lg waves-effect waves-light btn-block"
@@ -154,7 +144,6 @@ class New extends Component {
   render() {
     const {
       description,
-      hashtags,
       user,
       redirectToProfile,
       error,
@@ -189,7 +178,7 @@ class New extends Component {
         ) : (
           ""
         )}
-        {this.newPostForm(description, hashtags, place)}
+        {this.newPostForm(description, place)}
       </div>
     );
   }
