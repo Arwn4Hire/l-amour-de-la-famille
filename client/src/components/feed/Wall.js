@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {list} from '../../apis/apiPost'
 import defaultProfile from '../../assets/images/useravatar.png'
 import appPostDefaultImg from '../../assets/images/wormhole.jpg'
+import loadingImg from '../../assets/images/loading.gif'
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 
@@ -20,16 +21,19 @@ class Wall extends Component {
       likes: 0,
       comments: [],
       place:'',
-      text: ''
+      text: '',
+      loading: false
     };
    
   }
 
   loadPosts () {
+    this.setState({loading: true})
     list().then(data => {
         if (data.error) {
             console.log(data.error);
         } else {
+          this.setState({loading: false})
             this.setState({ posts: data });
           // console.log(data)
         }
@@ -70,7 +74,7 @@ class Wall extends Component {
 
 
                 <span>{posterName}</span>
-                <span className="place">{post.place}</span>
+               <Link style={{'color': 'rgb(36, 33, 179'}} to={`/post-location/${post._id}`}> <span className="place">{post.place}</span></Link>
               </div>
               <img src={moreImg} alt="More" />
             </header>
@@ -123,12 +127,14 @@ class Wall extends Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, loading } = this.state;
     return (
 
       <section>
+      {loading ? <img className="img-fluid" src={loadingImg} alt="loading" /> :
+       this.renderPosts(posts) }
         
-      {this.renderPosts(posts)}
+  
         
       </section>
       

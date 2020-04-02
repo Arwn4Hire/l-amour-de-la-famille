@@ -234,3 +234,18 @@ class Followers extends Component {
 }
 
 export default Followers
+
+<div className="form-group">
+        <img src={locationImg} alt="geo-loc" />
+        <label className=" bold">Location</label>
+        <input
+          className="form-control text-dark bold"
+          type="text"
+          name="place"
+          placeholder="Post's place"
+          onChange={this.handleChange("place")}
+          value={place}
+          style={{ fontSize: "1.0em" }}
+          hidden
+        />
+      </div>

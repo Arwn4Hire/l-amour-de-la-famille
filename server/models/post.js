@@ -23,10 +23,6 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: false
     },
-    // hashtags:[{
-    //   type: String,
-    //   required: false
-    // }],
     updated: Date,
     likes: [{ type: ObjectId, ref: "User" }],
     

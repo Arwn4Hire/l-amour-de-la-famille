@@ -83,10 +83,11 @@ exports.createPost = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "image could not be uploaded try again"
+        error:err //"image could not be uploaded try again"
       });
     }
     let post = new Post(fields);
+    console.log('the fields are:', fields)
     req.profile.hashed_password = undefined
     req.profile.salt = undefined
     post.postedBy = req.profile;

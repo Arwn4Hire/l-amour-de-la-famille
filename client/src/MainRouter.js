@@ -15,6 +15,7 @@ import Followers from './components/profile/Followers'
 import Following from './components/profile/Following'
 import PrivateRoute from "./auth/PrivateRoute";
 import FindUsers from "./user/FindUsers";
+import Location from "./views/Location"
 
 const MainRouter = () => (
     <div>
@@ -26,6 +27,7 @@ const MainRouter = () => (
     <Route exact path = '/home' component={Home}/>
     <Route exact path='/find-users' component={FindUsers}/>
     <Route exact path='/hash-tags' component={HashTag}/>
+    <Route exact path='/post-location/:postId' component={Location}/>
     <PrivateRoute exact path='/user/:userId' component={Profile}/>
     <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} />
     <PrivateRoute exact path='/followers' component={Followers}/>

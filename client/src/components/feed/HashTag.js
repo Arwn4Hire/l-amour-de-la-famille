@@ -5,23 +5,23 @@ class HashTag extends Component {
     render() {
         return (
             <div>
-            <div class="container">
+            <div className="container">
 
             
 
 
-            <h1 class="heading">Image Gallery with CSS Grid <span>& Flexbox Fallback</span><br/><div class="md-form mt-0">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search"/>
+            <h1 className="heading">Image Gallery with CSS Grid <span>& Flexbox Fallback</span><br/><div className="md-form mt-0">
+            <input className="form-control" type="text" placeholder="Search" aria-label="Search"/>
           </div></h1>
         
-            <div class="gallery">
+            <div className="gallery">
         
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop" alt="person writing in a notebook beside by an iPad, laptop, printed photos, spectacles, and a cup of coffee on a saucer"/>
+                <div className="gallery-item">
+                    <img className="gallery-image" src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop" alt="person writing in a notebook beside by an iPad, laptop, printed photos, spectacles, and a cup of coffee on a saucer"/>
                 </div>
         
-                <div class="gallery-item">
-                    <img class="gallery-image" src="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop" alt="sunset behind San Francisco city skyline"/>
+                <div className="gallery-item">
+                    <img className="gallery-image" src="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop" alt="sunset behind San Francisco city skyline"/>
                 </div>
         
                 <div class="gallery-item">
