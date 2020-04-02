@@ -1,8 +1,12 @@
+To do: 
+
+1)add mentions
+2)add hash-tag to images and search feature
+3) fix find users to follow
 
 
 
-
-
+------------------------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 To start the project install dependencies using the command:
@@ -21,6 +25,11 @@ Next in the server folder create a .env file and fill it with:
 ## APP_NAME=
 
 App name is optional but only when using the password reset feature
+
+Add google maps api key in:
+
+## index.html in the public folder
+---------------------------------------
 
 ## Available Scripts
 

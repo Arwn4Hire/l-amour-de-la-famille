@@ -4,7 +4,6 @@ import defaultProfile from '../../assets/images/useravatar.png'
 import appPostDefaultImg from '../../assets/images/wormhole.jpg'
 import loadingImg from '../../assets/images/loading.gif'
 import { Link } from "react-router-dom";
-import ReactHashtag from "react-hashtag";
 
 import commentImg from '../../assets/images/comment.svg';
 import likeImg from "../../assets/images/like.svg";
@@ -33,8 +32,7 @@ class Wall extends Component {
         if (data.error) {
             console.log(data.error);
         } else {
-          this.setState({loading: false})
-            this.setState({ posts: data });
+          this.setState({ posts: data ,loading: false})
           // console.log(data)
         }
     });
@@ -110,9 +108,9 @@ class Wall extends Component {
               <strong className='ml-3'>{post.comments.length} Comments</strong><br/>
               
              <p>
-              <ReactHashtag onHashtagClick={val =>  alert(val)}>
+              
                 {post.description} 
-              </ReactHashtag>
+              
              
               </p>
             </footer>

@@ -170,7 +170,8 @@ class EditProfile extends Component {
         >
           {error}
         </div>
-        {loading ? <img className="img-fluid" src={LoadingGif} alt="loading" /> : ""}
+        {loading ? <img className="img-fluid" src={LoadingGif} alt="loading" /> : ""
+      }
 
         <img src={photoUrl} onError={i => (i.target.src=`${DefaultProfile}`)} alt={name} height='150' width='150' style={{borderRadius: '50%'}}/>
 

@@ -6,7 +6,6 @@ import loadingSkeleton from "../assets/images/skeleton-loading.gif";
 import { Link } from "react-router-dom";
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
-import ReactHashtag from "react-hashtag";
 
 
 export default class Location extends Component {
@@ -107,9 +106,9 @@ export default class Location extends Component {
     <br />
     <div className="container mt-1">
       <h1>
-        <ReactHashtag onHashtagClick={val => alert(val)}>
+        
           {caption}
-        </ReactHashtag>
+        
       </h1>
       <div>
         <img
