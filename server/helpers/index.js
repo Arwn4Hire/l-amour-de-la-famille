@@ -1,4 +1,6 @@
 const nodeMailer = require("nodemailer");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const defaultEmailData = { from: "noreply@l'amour-de-la-famille.com" };
 
@@ -9,8 +11,8 @@ exports.sendEmail = emailData => {
     secure: false,
     requireTLS: true,
     auth: {
-      user: "theemodernentrepreneur@gmail.com",
-      pass: "4thTechies"
+      user: process.env.GOOGLE_EMAIL_USER,
+      pass: process.env.GOOGLE_PASSWORD
     }
   });
   return transporter

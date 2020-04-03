@@ -18,11 +18,13 @@ Next in the server folder create a .env file and fill it with:
 
 ### MONGO_URI=
 
-## PORT=
+## PORT=8080
 
 ## JWT_SECRET=
 
 ## APP_NAME=
+
+## CLIENT_URL=http://localhost:3000
 
 App name is optional but only when using the password reset feature
 
