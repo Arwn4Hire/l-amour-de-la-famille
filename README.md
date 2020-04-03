@@ -26,6 +26,12 @@ Next in the server folder create a .env file and fill it with:
 
 ## CLIENT_URL=http://localhost:3000
 
+Also in the clien folder create a .env file fill it with:
+
+## REACT_APP_API_URL=http://localhost:8080
+
+## REACT_APP_GOOGLE_MAPS_API_KEY=
+
 App name is optional but only when using the password reset feature
 
 Add google maps api key in:
