@@ -16,6 +16,8 @@ import Following from './components/profile/Following'
 import PrivateRoute from "./auth/PrivateRoute";
 import FindUsers from "./user/FindUsers";
 import Location from "./views/Location"
+import ForgotPassword from './user/ForgotPassword'
+import ResetPassword from './user/ResetPassword'
 
 const MainRouter = () => (
     <div>
@@ -28,6 +30,8 @@ const MainRouter = () => (
     <Route exact path='/find-users' component={FindUsers}/>
     <Route exact path='/hash-tags' component={HashTag}/>
     <Route exact path='/post-location/:postId' component={Location}/>
+    <Route exact path='/forgot-password' component={ForgotPassword}/>
+    <Route exact path="/reset-password/:resetPasswordToken" component={ResetPassword} />
     <PrivateRoute exact path='/user/:userId' component={Profile}/>
     <PrivateRoute exact path="/user/edit/:userId" component={EditProfile} />
     <PrivateRoute exact path='/followers' component={Followers}/>

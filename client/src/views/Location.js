@@ -47,7 +47,7 @@ export default class Location extends Component {
   };
 
   getLatLngFromAdd() {
-    Geocode.setApiKey("AIzaSyB6n2DQ5ooLWv44kZoGzVn28ASNQOnp8Do");
+    Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
     // set response language. Defaults to english.
     Geocode.setLanguage("en");
