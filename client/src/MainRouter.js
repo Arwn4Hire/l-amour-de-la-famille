@@ -29,7 +29,7 @@ const MainRouter = () => (
     <Route exact path = '/home' component={Home}/>
     <Route exact path='/find-users' component={FindUsers}/>
     <Route exact path='/hash-tags' component={HashTag}/>
-    <Route exact path='/post-location/:postId' component={Location}/>
+    <PrivateRoute exact path='/post-location/:postId' component={Location}/>
     <Route exact path='/forgot-password' component={ForgotPassword}/>
     <Route exact path="/reset-password/:resetPasswordToken" component={ResetPassword} />
     <PrivateRoute exact path='/user/:userId' component={Profile}/>

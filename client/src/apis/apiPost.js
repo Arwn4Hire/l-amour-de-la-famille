@@ -68,6 +68,24 @@ export const create = async (userId, token, post) => {
       return console.log(err);
     }
   };
+
+  export const findHash = async query => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/search-for/${query}`,
+        {
+        method: "GET",
+        headers: {
+          Accept: "application/json"
+        
+        }
+      }
+      );
+      return response.json()
+    } catch (err) {
+      return console.log(err)
+    }
+  }
   
   export const listByUser = async (userId, token) => {
     try {

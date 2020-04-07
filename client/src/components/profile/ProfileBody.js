@@ -156,7 +156,9 @@ class ProfileBody extends Component {
     </header>
     
    <UserPostImgs 
-   posts={posts}/>
+   posts={posts}
+   
+   />
     </>
       )}
     </div>

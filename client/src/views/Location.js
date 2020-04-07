@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 
-
 export default class Location extends Component {
   constructor() {
     super();
@@ -19,16 +18,16 @@ export default class Location extends Component {
       photoImgId: "",
       caption: "",
       name: "",
-      place:"",
-      loading:false
+      place: "",
+      loading: false,
     };
   }
 
   componentDidMount = () => {
     const postId = this.props.match.params.postId;
 
-    singlePost(postId).then(data => {
-        this.setState({loading:true})
+    singlePost(postId).then((data) => {
+      this.setState({ loading: true });
       if (data.error) {
         console.log(data.error);
       } else {
@@ -38,9 +37,9 @@ export default class Location extends Component {
           postById: data.postedBy._id,
           caption: data.description,
           name: data.postedBy.name,
-          place: data.place
+          place: data.place,
         });
-       // console.log(data);
+        // console.log(data);
         this.getLatLngFromAdd();
       }
     });
@@ -60,70 +59,83 @@ export default class Location extends Component {
     Geocode.enableDebug();
 
     const { defaultCenter } = this.state;
-    Geocode.fromAddress(defaultCenter).then(response => {
-      const { lat, lng } = response.results[0].geometry.location;
-      this.setState({ lat, lng, loading:false });
-      // console.log(lat, lng);
+    Geocode.fromAddress(defaultCenter).then((response) => {
+      if (response.error) {
+        console.log(response.error);
+      } else {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState({ lat, lng, loading: false });
+        // console.log(lat, lng);
+      }
     });
   }
 
   render() {
-    const { lat, lng, photoImgId, postById, caption, name, place, loading } = this.state;
+    const {
+      lat,
+      lng,
+      photoImgId,
+      postById,
+      caption,
+      name,
+      place,
+      loading,
+    } = this.state;
 
-    const MapWithAMarker = withGoogleMap(props => (
+    const MapWithAMarker = withGoogleMap((props) => (
       <GoogleMap defaultZoom={15} defaultCenter={{ lat: lat, lng: lng }}>
         <Marker position={{ lat: lat, lng: lng }} />
       </GoogleMap>
     ));
     return (
       <div className="container mt-5">
-      {loading ? <img className="img-fluid" src={loadingSkeleton} alt="loading" /> :<> <header>
-      <div className="user-info">
-        <div className="Post-user-avatar">
-
-          <Link to={`/user/${postById}`}>
-            <img
-              className=" mt-3 img-fluid"
-              width="23px"
-              height="23px"
-              style={{ borderRadius: "50%", border: "1px solid black" }}
-              src={`${
-                process.env.REACT_APP_API_URL
-              }/user/photo/${postById}?${new Date().getTime()}`}
-              alt={caption}
-              onError={i => (i.target.src = `${defaultProfile}`)}
+        {loading ? (
+          <img className="img-fluid" src={loadingSkeleton} alt="loading" />
+        ) : (
+          <>
+            {" "}
+            <header>
+              <div className="user-info">
+                <div className="Post-user-avatar">
+                  <Link to={`/user/${postById}`}>
+                    <img
+                      className=" mt-3 img-fluid"
+                      width="23px"
+                      height="23px"
+                      style={{ borderRadius: "50%", border: "1px solid black" }}
+                      src={`${
+                        process.env.REACT_APP_API_URL
+                      }/user/photo/${postById}?${new Date().getTime()}`}
+                      alt={caption}
+                      onError={(i) => (i.target.src = `${defaultProfile}`)}
+                    />
+                  </Link>
+                </div>
+              </div>
+              <span>{name}</span>
+              <br />
+              <span>{place}</span>
+            </header>
+            <MapWithAMarker
+              containerElement={<div style={{ height: `400px` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
             />
-          </Link>
-        </div>
-      </div>
-      <span>{name}</span><br/>
-      <span>{place}</span>
-    </header>
-    <MapWithAMarker
-      containerElement={<div style={{ height: `400px` }} />}
-      mapElement={<div style={{ height: `100%` }} />}
-    />
-    <br />
-    <div className="container mt-1">
-      <h1>
-        
-          {caption}
-        
-      </h1>
-      <div>
-        <img
-          src={`${process.env.REACT_APP_API_URL}/post/photo/${photoImgId}`}
-          alt={caption}
-          onError={i => (i.target.src = `${defaultPostImg}`)}
-          className="img-fluid"
-          height="80"
-          width="auto"
-        />
-      </div>
-    </div>
-    </>
-    }
-        
+            <br />
+            <div className="container mt-1">
+              <h1>{caption}</h1>
+              <div>
+                <img
+                  src={`${process.env.REACT_APP_API_URL}/post/photo/${photoImgId}`}
+                  alt={caption}
+                  onError={(i) => (i.target.src = `${defaultPostImg}`)}
+                  className="img-fluid"
+                  height="80"
+                  width="auto"
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     );
   }

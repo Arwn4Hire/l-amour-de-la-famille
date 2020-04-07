@@ -26,7 +26,7 @@ Next in the server folder create a .env file and fill it with:
 
 ## CLIENT_URL=http://localhost:3000
 
-Also in the clien folder create a .env file fill it with:
+Also in the client folder create a .env file fill it with:
 
 ## REACT_APP_API_URL=http://localhost:8080
 

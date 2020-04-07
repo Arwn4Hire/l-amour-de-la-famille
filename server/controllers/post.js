@@ -1,23 +1,23 @@
 const Post = require("../models/post");
 const formidable = require("formidable");
 const fs = require("fs");
-const _ = require('lodash')
+const _ = require("lodash");
 
 exports.postById = (req, res, next, id) => {
   Post.findById(id)
-      .populate('postedBy', '_id name')
-      .populate('comments.postedBy', '_id name')
-      .populate('postedBy', '_id name role')
-      .select('_id description place created likes comments photo')
-      .exec((err, post) => {
-          if (err || !post) {
-              return res.status(400).json({
-                  error: err
-              });
-          }
-          req.post = post;
-          next();
-      });
+    .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name role")
+    .select("_id description place created likes comments photo")
+    .exec((err, post) => {
+      if (err || !post) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      req.post = post;
+      next();
+    });
 };
 
 // exports.postById = (req, res, next, id) => {
@@ -45,8 +45,7 @@ exports.postById = (req, res, next, id) => {
 
 exports.getPostIdForLikes = (req, res) => {
   return res.json(req.post.id);
-  
-}
+};
 
 //with pagination
 exports.getPost = async (req, res) => {
@@ -57,24 +56,26 @@ exports.getPost = async (req, res) => {
   //let totalItems;
 
   const posts = await Post.find()
-      // countDocuments() gives you total count of posts
-      .countDocuments()
-      .then(count => {
-          totalItems = count;
-          return Post.find()
-              //.skip((currentPage - 1) * perPage)
-              //.populate('comments', 'text created')
-              .populate('comments.postedBy', '_id name')
-              .populate('postedBy', '_id name')
-              .select('_id description place created likes comments')
-             // .limit(perPage)
-              .sort({ created: -1 });
-      })
-      .then(posts => {
-          res.status(200).json(posts);
-          //console.log(posts)
-      })
-      .catch(err => console.log(err));
+    // countDocuments() gives you total count of posts
+    .countDocuments()
+    .then((count) => {
+      totalItems = count;
+      return (
+        Post.find()
+          //.skip((currentPage - 1) * perPage)
+          //.populate('comments', 'text created')
+          .populate("comments.postedBy", "_id name")
+          .populate("postedBy", "_id name")
+          .select("_id description place created likes comments")
+          // .limit(perPage)
+          .sort({ created: -1 })
+      );
+    })
+    .then((posts) => {
+      res.status(200).json(posts);
+      //console.log(posts)
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.createPost = (req, res, next) => {
@@ -83,13 +84,13 @@ exports.createPost = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error:err //"image could not be uploaded try again"
+        error: err, //"image could not be uploaded try again"
       });
     }
     let post = new Post(fields);
-    console.log('the fields are:', fields)
-    req.profile.hashed_password = undefined
-    req.profile.salt = undefined
+    console.log("the fields are:", fields);
+    req.profile.hashed_password = undefined;
+    req.profile.salt = undefined;
     post.postedBy = req.profile;
 
     if (files.photo) {
@@ -99,7 +100,7 @@ exports.createPost = (req, res, next) => {
     post.save((err, result) => {
       if (err) {
         res.status(400).json({
-          error: err
+          error: err,
         });
       }
       res.json(result);
@@ -108,19 +109,23 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.postsByUser = (req, res) => {
-  Post.find({postedBy: req.profile._id}).populate("postedBy", "_id name").select("_id description place comments created likes").sort("_created").exec((err, posts) => {
-    if(err) {
-      return res.status(400).json({
-        error: err
-      })
-    }
-    res.json(posts)
-  })
-}
+  Post.find({ postedBy: req.profile._id })
+    .populate("postedBy", "_id name")
+    .select("_id description place comments created likes")
+    .sort("_created")
+    .exec((err, posts) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      res.json(posts);
+    });
+};
 
 exports.isPoster = (req, res, next) => {
   let sameUser = req.post && req.auth && req.post.postedBy._id == req.auth._id;
-  let adminUser = req.post && req.auth && req.auth.role === 'admin';
+  let adminUser = req.post && req.auth && req.auth.role === "admin";
 
   // console.log("req.post ", req.post, " req.auth ", req.auth);
   // console.log("SAMEUSER: ", sameUser, " ADMINUSER: ", adminUser);
@@ -128,9 +133,9 @@ exports.isPoster = (req, res, next) => {
   let isPoster = sameUser || adminUser;
 
   if (!isPoster) {
-      return res.status(403).json({
-          error: 'User is not authorized Please Sign-in'
-      });
+    return res.status(403).json({
+      error: "User is not authorized Please Sign-in",
+    });
   }
   next();
 };
@@ -155,7 +160,8 @@ exports.updatePost = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Their was an error uploading your photo, please give us a minute and try again"
+        error:
+          "Their was an error uploading your photo, please give us a minute and try again",
       });
     }
     //save post info
@@ -170,93 +176,155 @@ exports.updatePost = (req, res, next) => {
     post.save((err, result) => {
       if (err) {
         return res.status(400).json({
-          error: err
+          error: err,
         });
       }
-      
+
       res.json(post);
     });
   });
 };
 
 exports.deletePost = (req, res) => {
-  let post = req.post
+  let post = req.post;
   post.remove((err, post) => {
-    if(err) {
+    if (err) {
       return res.status(400).json({
-        error: err
-      })
+        error: err,
+      });
     }
     res.json({
-      message: "Post deleted!"
-    })
-  })
-}
+      message: "Post deleted!",
+    });
+  });
+};
 
-exports.photo =(req, res, next) => {
-  res.set("Content-Type", req.post.photo.contentType)
-  return res.send(req.post.photo.data)
-}
+exports.photo = (req, res, next) => {
+  res.set("Content-Type", req.post.photo.contentType);
+  return res.send(req.post.photo.data);
+};
 
 exports.singlePost = (req, res) => {
   return res.json(req.post);
-}
+};
 
 exports.like = (req, res) => {
-  Post.findByIdAndUpdate(req.body.postId, {$push: {likes: req.body.userId}}, {new: true}).exec((err, result) => {
-    if(err){
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { $push: { likes: req.body.userId } },
+    { new: true }
+  ).exec((err, result) => {
+    if (err) {
       return res.status(400).json({
-        error: err
-      })
+        error: err,
+      });
     } else {
-      res.json(result)
+      res.json(result);
     }
-  })
-}
+  });
+};
 
 exports.unlike = (req, res) => {
-  Post.findByIdAndUpdate(req.body.postId, {$pull: {likes: req.body.userId}}, {new: true}).exec((err, result) => {
-    if(err){
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { $pull: { likes: req.body.userId } },
+    { new: true }
+  ).exec((err, result) => {
+    if (err) {
       return res.status(400).json({
-        error: err
-      })
+        error: err,
+      });
     } else {
-      res.json(result)
+      res.json(result);
     }
-  })
-}
+  });
+};
 
 exports.comment = (req, res) => {
   let comment = req.body.comment;
   comment.postedBy = req.body.userId;
 
-  Post.findByIdAndUpdate(req.body.postId, { $push: { comments: comment } }, { new: true })
-      .populate('comments.postedBy', '_id name')
-      .populate('postedBy', '_id name')
-      .exec((err, result) => {
-          if (err) {
-              return res.status(400).json({
-                  error: err
-              });
-          } else {
-              res.json(result);
-          }
-      });
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { $push: { comments: comment } },
+    { new: true }
+  )
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      } else {
+        res.json(result);
+      }
+    });
 };
 
 exports.uncomment = (req, res) => {
   let comment = req.body.comment;
 
-  Post.findByIdAndUpdate(req.body.postId, { $pull: { comments: { _id: comment._id } } }, { new: true })
-      .populate('comments.postedBy', '_id name')
-      .populate('postedBy', '_id name')
-      .exec((err, result) => {
-          if (err) {
-              return res.status(400).json({
-                  error: err
-              });
-          } else {
-              res.json(result);
-          }
-      });
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    { $pull: { comments: { _id: comment._id } } },
+    { new: true }
+  )
+    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      } else {
+        res.json(result);
+      }
+    });
 };
+
+// find hash
+exports.findHash = (req, res) => {
+  const regex = new RegExp(escapeRegex(req.query.search), 'gi')
+  const query = req.params.query;
+  Post.find({
+    
+    $text: {
+      $search:query, regex
+    }
+    
+  }, function(err, result) {
+    if(err){
+      console.log(err)
+    } else {
+      res.json(result)
+    }
+  })
+ // if (req.query.search) {
+  //   const regex = new RegExp(escapeRegex(req.query.search), 'gi')
+  // // const query = { description: /^#/ };
+  //   Post.find({regex}, function (err, result) {
+  //     if (err) {
+  //       console.log(err);
+  //     } else {
+  //       res.json(result);
+  //       console.log(result)
+  //     }
+  //   });
+ // }
+};
+
+exports.find = (req, res) => {
+  const query = {description: /^S/}
+  Post.find(query).toArray(function(err, result) {
+    if(err) {
+      console.log(err)
+    } else {
+      console.log(result)
+    }
+  })
+}
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$!#\s]/g, "\\$&")
+}

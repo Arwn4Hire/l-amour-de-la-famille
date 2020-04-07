@@ -13,7 +13,8 @@ const {
   unlike,
   comment,
   uncomment,
-  getPostIdForLikes
+  getPostIdForLikes,
+  findHash
 } = require("../controllers/post");
 
 const { requireSignin } = require("../controllers/auth");
@@ -38,6 +39,8 @@ router.get('/post/:postId', singlePost);
 // post routes
 router.get('/forIds', getPostIdForLikes)
 router.post('/post/new/:userId', requireSignin, createPost, createPostValidator);
+
+router.post('/search-for/:query', findHash)
 
 router.get('/posts/by/:userId', requireSignin, postsByUser);
 

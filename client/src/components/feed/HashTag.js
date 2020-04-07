@@ -1,46 +1,99 @@
 import React, { Component } from 'react'
-import './hash.css'
+//import './hash.css'
+import {list, findHash} from '../../apis/apiPost'
+import loadingImg from '../../assets/images/loading.gif'
+import appPostDefaultImg from '../../assets/images/wormhole.jpg'
+import { Link } from "react-router-dom";
 
 class HashTag extends Component {
+    constructor() {
+        super()
+        this.state ={
+            loading: false,
+            posts: [],
+            text: ''
+        }
+    }
+
+    loadPosts () {
+        this.setState({loading: true})
+        list().then(data => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+              this.setState({ posts: data ,loading: false})
+              // console.log(data)
+            }
+        });
+    };
+
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+        
+      };
+    
+       async componentDidMount() {
+        this.loadPosts();
+      }
+
+      onSubmit = e => {
+        e.preventDefault();
+        const {text} = this.state
+       
+        findHash(text).then(data => {
+            if(data.error){
+                console.log(data.error)
+            } else {
+                console.log(data)
+            }
+        })
+
+      }
+
+      renderSearch= posts =>{
+          return (
+              <div>
+              {posts.map((post, i) => {
+return(
+    <div className="card-group" key={i}>
+    <div className="card">
+    <Link to={`/post/${post._id}`}>
+    <img src={`${process.env.REACT_APP_API_URL}/post/photo/${post._id}`} alt={post.title} onError={i => i.target.src=`${appPostDefaultImg}`} className='img-thumbnail' height='180px' width='180px' style={{borderRadius: '12%'}}/>
+    </Link>
+      <div className="card-body">
+        <h3 className="card-title text-center">{post.description}</h3>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+)
+              })}
+              </div>
+          )
+      }
+
     render() {
+        const {posts, loading, text} = this.state
         return (
             <div>
             <div className="container">
 
+            <h1 className="heading">Search for Users,<span>Places or HashTag images</span><br/>
+            <div className="md-form mt-0">
+            <input className="form-control lead" onChange={this.handleChange("text")} type="text" value={text} placeholder="Search" aria-label="Search"/>
+          </div>
+          <button onClick={this.onSubmit} className="btn btn-lg btn-default btn-block">Search</button>
+          </h1>
             
 
 
-            <h1 className="heading">Image Gallery with CSS Grid <span>& Flexbox Fallback</span><br/><div className="md-form mt-0">
-            <input className="form-control" type="text" placeholder="Search" aria-label="Search"/>
-          </div></h1>
-        
-            <div className="gallery">
-        
-                <div className="gallery-item">
-                    <img className="gallery-image" src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop" alt="person writing in a notebook beside by an iPad, laptop, printed photos, spectacles, and a cup of coffee on a saucer"/>
-                </div>
-        
-                <div className="gallery-item">
-                    <img className="gallery-image" src="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop" alt="sunset behind San Francisco city skyline"/>
-                </div>
-        
-                <div className="gallery-item">
-                    <img className="gallery-image" src="https://images.unsplash.com/photo-1506045412240-22980140a405?w=500&h=500&fit=crop" alt="people holding umbrellas on a busy street at night lit by street lights and illuminated signs in Tokyo, Japan"/>
-                </div>
-        
-                <div className="gallery-item">
-                    <img className="gallery-image" src="https://images.unsplash.com/photo-1514041181368-bca62cceffcd?w=500&h=500&fit=crop" alt="car interior from central back seat position showing driver and blurred view through windscreen of a busy road at night"/>
-                </div>
-        
-                <div className="gallery-item">
-                    <img className="gallery-image" src="https://images.unsplash.com/photo-1445810694374-0a94739e4a03?w=500&h=500&fit=crop" alt="back view of woman wearing a backpack and beanie waiting to cross the road on a busy street at night in New York City, USA"/>
-                </div>
-        
-                <div className="gallery-item">
-                    <img className="gallery-image" src="https://images.unsplash.com/photo-1486334803289-1623f249dd1e?w=500&h=500&fit=crop" alt="man wearing a black jacket, white shirt, blue jeans, and brown boots, playing a white electric guitar while sitting on an amp"/>
-                </div>
-        
-            </div>
+            
+          {loading ? <img className="img-fluid" src={loadingImg} alt="loading" /> :
+          this.renderSearch(posts) }
+         
         
         </div>
             </div>

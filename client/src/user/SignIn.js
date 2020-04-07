@@ -25,9 +25,9 @@ class SignIn extends Component {constructor() {
   clickSubmit = e => {
     e.preventDefault();
     this.setState({loading: true})
-
+    
     const {email, password } = this.state;
-
+    
     const user = { email, password };
 
     signin(user).then(data => {
@@ -55,8 +55,9 @@ class SignIn extends Component {constructor() {
           onChange={this.handleChange("email")}
           type="email"
           className="form-control  text-dark bold"
-          value={email}
+          value={email.toLowerCase()}
           style={{'fontSize': '1.0em'}}
+          
         />
         
       </div>

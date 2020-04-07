@@ -55,10 +55,7 @@ const Menu = ({ history }) => {
           <img src={camera} alt="publish" />
         </Link>
 
-        <Link to="/hash-tags" style={isActive(history, "/search-hashtags")}>
-          {" "}
-          <img src={search} alt="hash-tags" />
-        </Link>
+    
 
         <Link to={`/user/${isAuthenticated().user._id}`} style={
           (isActive(history, `/user/${isAuthenticated().user._id}`))
@@ -74,7 +71,7 @@ const Menu = ({ history }) => {
         </Link>
      
         <span style={isActive(history, "#")}
-        onClick={() => signout(() => history.push("/home"))}>
+        onClick={() => signout(() => history.push("/"))}>
           {" "}
           <img src={signoutImg} alt="sign out" />
         </span>
