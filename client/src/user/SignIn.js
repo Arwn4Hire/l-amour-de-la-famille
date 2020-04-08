@@ -81,11 +81,11 @@ class SignIn extends Component {constructor() {
     const { email, password, error, redirectToReferer, loading  } = this.state;
 
     if(redirectToReferer) {
-        return <Redirect to='/'/>
+        return <Redirect to='/home'/>
     }
     return (
       <div className="container">
-        <h2 className="mt-5 mb-5">Signin</h2>
+        <h2 className="mt-5 mb-5">Sign-in</h2>
 
         <div
           className="alert alert-danger"
@@ -94,9 +94,7 @@ class SignIn extends Component {constructor() {
           {error}
         </div>
 
-        {loading ? <div className="jumbotron text-center"><h2>Loading...</h2></div> : ""}
-
-        {this.signinForm( email, password)}
+        {loading ? <div className="jumbotron text-center"><h2>Loading...</h2></div> : this.signinForm( email, password)}
 
         <p>
         <Link

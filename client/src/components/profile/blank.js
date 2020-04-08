@@ -271,8 +271,17 @@ export default Followers
   <div className="gallery-item">
       <img className="gallery-image" src="https://images.unsplash.com/photo-1486334803289-1623f249dd1e?w=500&h=500&fit=crop" alt="man wearing a black jacket, white shirt, blue jeans, and brown boots, playing a white electric guitar while sitting on an amp"/>
   </div>
-
+  
+//menu
    // <Link to="/hash-tags" style={isActive(history, "/search-hashtags")}>
         //   {" "}
         //   <img src={search} alt="hash-tags" />
         // </Link>
+
+        <Link to="/hash-tags" style={isActive(history, "/search-hashtags")}>
+        {" "}
+        <img src={search} alt="hash-tags" />
+      </Link>
+//for find users
+        <button className="btn btn-raised btn-info lead btn-lg float-left" style={{borderRadius: '12px'}}><Link to={`/user/${user._id}`} >View Profile
+      </Link></button>

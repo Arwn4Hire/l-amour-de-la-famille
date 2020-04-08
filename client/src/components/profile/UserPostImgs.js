@@ -22,6 +22,7 @@ class UserPostImgs extends Component {
                         src={`${process.env.REACT_APP_API_URL}/post/photo/${postImg._id}`}
                         alt={postImg.description}
                         onError={(i) => (i.target.src = `${appPostDefaultImg}`)}
+                        loading="lazy"
                       />
                     
 

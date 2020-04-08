@@ -66,7 +66,7 @@ class ProfileBody extends Component {
       if (data.error) {
         console.log(data.error);
       } else {
-        console.log(data)
+       // console.log(data)
         this.setState({ posts: data });
       }
     });
@@ -111,6 +111,7 @@ class ProfileBody extends Component {
             height="150"
             width="150"
             className='img-fluid'
+            loading="lazy"
             style={{ borderRadius: "50%" }}/>
     
           </div>
@@ -142,7 +143,7 @@ class ProfileBody extends Component {
     
           <div className="profile-bio">
     
-            <p className="profile-real-name">{`Joined ${new Date(user.created).toDateString()}`} <br/>{user.about}</p>
+            <p className="profile-real-name">{`Joined ${new Date(user.created).toDateString()}`} <br/>bio: {user.about}</p>
     
           </div>
 

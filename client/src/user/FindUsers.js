@@ -44,15 +44,15 @@ class Users extends Component {
   }
 
   renderUsers = users => (
-    <div className="row">
+    <div className="list-group list-group-flush">
     {users.map((user, i) =>(
-      <div key={i} className='text-center col-sm-4' >
+      <div key={i} className=' list-group-item' >
+      <Link to={`/user/${user._id}`} >
       <img src={`${process.env.REACT_APP_API_URL}/user/photo/${user._id}`} onError={i => (i.target.src=`${DefaultProfile}`)} alt={user.name} className='img-thumbnail' height='80' width='80' style={{borderRadius: '50%'}}/>
-      <div className="card-body">
+      </Link>
       <h5 className="card-title">{user.name}</h5>
-      <button className="btn btn-raised btn-info lead btn-lg float-left" style={{borderRadius: '12px'}}><Link to={`/user/${user._id}`} >View Profile
-      </Link></button>
-      
+
+      <div className="card-body">
       <button className="btn btn-raised lead btn-info btn-lg float-right" onClick={() => this.clickFollow(user, i)}  style={{borderRadius: '12px'}}>Follow</button>
       </div>
       

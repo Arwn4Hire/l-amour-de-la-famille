@@ -47,7 +47,7 @@ class SinglePost extends Component {
           like: this.checkLike(data.likes),
           comments: data.comments
         });
-        console.log(data)
+       // console.log(data)
       }
     });
   };
@@ -123,6 +123,7 @@ class SinglePost extends Component {
           className="img-fluid"
           height="100"
           width="100%"
+          loading="lazy"
         />
         
 
@@ -218,7 +219,7 @@ class SinglePost extends Component {
     const { post, redirectToHome, redirectToSignIn, comments } = this.state;
 
     if (redirectToHome) {
-      return <Redirect to={`/`} />;
+      return <Redirect to={`/home`} />;
     } else if (redirectToSignIn) {
       return <Redirect to="/signin" />;
     }

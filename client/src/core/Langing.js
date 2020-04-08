@@ -4,14 +4,14 @@ import './landing.css'
 const Landing = () => (
     
     
-    <div className="container-full"> 
+    <div className="container-full body"> 
 
       <div className="row">
        
         <div className="col-lg-12 text-center v-center">
           
           <h1 className='landingH1'>Welcome to l'amour de la famille</h1>
-          <p className="landing">Family source for images and long term memories photos</p>
+          <p className="landing">Family source for images and long term memory photos</p>
         
         </div>
         

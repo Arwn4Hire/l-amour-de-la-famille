@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth";
 import logo from "../assets/images/logo.svg";
 import camera from "../assets/images/camera.svg";
-import search from '../assets/images/search-plus-solid.svg'
+//import search from '../assets/images/search-plus-solid.svg'
 import users from '../assets/images/user-plus-solid.svg'
 import signup from '../assets/images/id-card-regular.svg'
 import signin from '../assets/images/sign-in-alt-solid.svg'
@@ -25,10 +25,7 @@ const Menu = ({ history }) => {
 
         {!isAuthenticated() && (
           <>
-          <Link to="/hash-tags" style={isActive(history, "/search-hashtags")}>
-          {" "}
-          <img src={search} alt="hash-tags" />
-        </Link>
+         
         <Link to="/sign-up" style={isActive(history, "/sign-up")}>
           {" "}
           <img src={signup} alt="signup" />

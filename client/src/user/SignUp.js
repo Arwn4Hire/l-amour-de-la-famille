@@ -63,6 +63,7 @@ class SignUp extends Component {
         />
       </div>
       <div className="form-group">
+      <i className="fa fa-lock prefix grey-text"/>
         <label className="lead">Password</label>
         <input
           onChange={this.handleChange("password")}

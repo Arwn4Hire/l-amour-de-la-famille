@@ -9,7 +9,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 //import Camera from 'react-html5-camera-photo';
 //import 'react-html5-camera-photo/build/css/index.css';
-import loadingGif from "../assets/images/loading.gif";
+import loadingGif from "../assets/images/smile-loading.gif";
 import locationImg from "../assets/images/search-location-solid.svg";
 import editdesImg from "../assets/images/edit-regular.svg";
 
@@ -40,7 +40,7 @@ class New extends Component {
   isValid = () => {
     const { description, fileSize } = this.state;
     if (fileSize > 51200) {
-      this.setState({ error: "File should be less than 5120kb or 5mb" });
+      this.setState({ error: "File should be less than 51200kb or 5mb" });
       return false;
     }
     if (description.length === 0) {
@@ -84,7 +84,7 @@ handleLocation = (place) => this.setState({ place })
       const userId = isAuthenticated().user._id;
       const token = isAuthenticated().token;
       create(userId, token, this.postData ).then(data => {
-        console.log(data);
+        //console.log(data);
         if (data.error) this.setState({ error: data.error });
         else {
           this.setState({
@@ -209,9 +209,9 @@ handleLocation = (place) => this.setState({ place })
             </h2>
           </div>
         ) : (
-          ""
+          this.newPostForm(description, place)
         )}
-        {this.newPostForm(description, place)}
+        
       </div>
     );
   }

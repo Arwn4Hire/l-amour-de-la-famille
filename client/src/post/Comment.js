@@ -120,6 +120,7 @@ class Comment extends Component {
                     className="float-left mr-2"
                     height="30px"
                     width="30px"
+                    loading="lazy"
                     style={{ borderRadius: "50%", border: "1px solid black" }}
                     src={`${process.env.REACT_APP_API_URL}/user/photo/${comment.postedBy._id}`}
                     alt={comment.postedBy.name}
